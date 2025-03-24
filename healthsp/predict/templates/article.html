@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHSPHERE - Disease Articles</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="{% url 'home' %}" class="nav-button">Home</a>
+            <a href="{% url 'predict' %}" class="nav-button">Predict Disease</a>
+            <a href="{% url 'article' %}" class="nav-button">Disease Articles</a>
+            <a href="{% url 'contact' %}" class="nav-button">Contact Us</a>
+            <a href="{% url 'about' %}" class="nav-button">About Us</a>
+        </div>
+        <img src="{% static 'images/logo2.jpg' %}" alt="HealthSphere Logo" class="logo">
+    </div>
+
+    <div class="content">
+        <h1>Newly Identified Diseases</h1>
+        <p class="intro-text">Explore information about recently identified infectious diseases affecting global health.</p>
+
+        <div class="disease-container">
+            <!-- SARS-CoV-2 (COVID-19) -->
+            <div class="disease-card">
+                <a href="https://www.who.int/health-topics/coronavirus" target="_blank">
+                    <img src="{% static 'images/sars_cov_2.jpg' %}" alt="SARS-CoV-2" class="disease-image">
+                </a>
+                <h3>SARS-CoV-2 (COVID-19)</h3>
+                <p>Identified in December 2019 in Wuhan, China, SARS-CoV-2 causes COVID-19, a respiratory illness that led to a global pandemic. It spreads through respiratory droplets and has symptoms ranging from mild fever to severe pneumonia.</p>
+            </div>
+
+            <!-- Nipah Virus -->
+            <div class="disease-card">
+                <a href="https://www.cdc.gov/vhf/nipah/index.html" target="_blank">
+                    <img src="{% static 'images/nipah_virus.jpg' %}" alt="Nipah Virus" class="disease-image">
+                </a>
+                <h3>Nipah Virus</h3>
+                <p>First identified in 1998 in Malaysia, Nipah virus is a zoonotic pathogen transmitted from bats or pigs to humans. It causes severe encephalitis with a high mortality rate, up to 75%, and has no vaccine yet.</p>
+            </div>
+
+            <!-- Zika Virus -->
+            <div class="disease-card">
+                <a href="https://www.cdc.gov/zika/index.html" target="_blank">
+                    <img src="{% static 'images/zika_virus.jpg' %}" alt="Zika Virus" class="disease-image">
+                </a>
+                <h3>Zika Virus</h3>
+                <p>Recognized in humans in the 1950s but emerging globally in 2015, Zika is spread by Aedes mosquitoes. It’s linked to microcephaly in newborns when contracted during pregnancy, alongside mild fever and rash.</p>
+            </div>
+
+            <!-- Mpox (Monkeypox) -->
+            <div class="disease-card">
+                <a href="https://www.who.int/news-room/fact-sheets/detail/monkeypox" target="_blank">
+                    <img src="{% static 'images/mpox.jpg' %}" alt="Mpox" class="disease-image">
+                </a>
+                <h3>Mpox (Monkeypox)</h3>
+                <p>Though known since 1958, Mpox gained attention with outbreaks in 2022 outside endemic areas (e.g., Africa). Caused by the monkeypox virus, it spreads via contact and causes fever, rash, and pustules.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHSPHERE - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <div class="header">
+        <div class="nav-bar">
+            <a href="{% url 'home' %}" class="nav-button">Home</a>
+            <a href="{% url 'predict' %}" class="nav-button">Predict Disease</a>
+            <a href="{% url 'article' %}" class="nav-button"> Disease Articles</a>
+            <a href="{% url 'contact' %}" class="nav-button">Contact Us</a>
+            <a href="{% url 'about' %}" class="nav-button">About Us</a>
+          
+        </div>
+        <img src="{% static 'images/logo2.jpg' %}" alt="HealthSphere Logo" class="logo">
+  
+    </div>
+
+    <div class="content">
+        <h1>Welcome to HealthSphere</h1>
+        <div class="system-description">
+            <p align="justify">HealthSphere is a cutting-edge disease prediction system designed to assist users in identifying potential health issues based on symptoms. Leveraging a Naive Bayes machine learning model trained on extensive medical data, it provides accurate disease predictions and recommends the appropriate medical department for consultation. Whether you're experiencing unusual symptoms or seeking proactive health insights, HealthSphere is here to guide you with reliable, user-friendly technology.</p>
+        </div>
+
+        <h2>Features</h2>
+        <div class="feature-container">
+            <div class="feature-box">
+                <img src="{% static 'images/symptom_analysis.jpg' %}" alt="Symptom Analysis" class="feature-image">
+                <h3>Symptom Analysis</h3>
+                <p>Easily select your symptoms from a comprehensive list to receive a tailored disease prediction.</p>
+            </div>
+            <div class="feature-box">
+                <img src="{% static 'images/ml_model.jpg' %}" alt="Machine Learning" class="feature-image">
+                <h3>Machine Learning</h3>
+                <p>Powered by a sophisticated Naive Bayes algorithm trained on real-world medical data for precision.</p>
+            </div>
+            <div class="feature-box">
+                <img src="{% static 'images/doctor.jpg' %}" alt="Department Recommendation" class="feature-image">
+                <h3>Department Recommendation</h3>
+                <p>Get instant guidance on which medical specialist to consult based on your predicted condition.</p>
+            </div>
+        </div>
+
+        <a href="{% url 'predict' %}" class="predict-button">Try the Prediction Tool</a>
+    </div>
+</body>
+</html>

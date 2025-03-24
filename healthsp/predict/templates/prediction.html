@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHSPHERE - Prediction</title>
+    {% load static %}
+    {% load predict_tags %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="{% url 'home' %}" class="nav-button">Home</a>
+            <a href="{% url 'predict' %}" class="nav-button">Predict Disease</a>
+            <a href="{% url 'article' %}" class="nav-button">Disease Articles</a>
+            <a href="{% url 'contact' %}" class="nav-button">Contact Us</a>
+            <a href="{% url 'about' %}" class="nav-button">About Us</a>
+        
+        </div>
+        <img src="{% static 'images/logo2.jpg' %}" alt="HealthSphere Logo" class="logo">
+    </div>
+
+    <div class="content prediction-content">
+        <h1>Disease Prediction</h1>
+        <p class="intro-text">Enter your symptoms below and let HealthSphere predict your condition with precision!</p>
+
+        <form id="prediction-form" method="POST" action="{% url 'predict' %}">
+            {% csrf_token %}
+            <div class="symptom-container" id="symptom-container">
+                {% for i in "12345" %}
+                <div class="symptom-row">
+                    <select name="symptoms[]" class="symptom-input" onchange="showDescription(this)">
+                        <option value="">Select Symptom {{ i }}</option>
+                        {% for symptom in symptoms_list %}
+                            <option value="{{ symptom }}" data-description="{{ symptom_descriptions|safedict:symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="symptom-description" id="desc-{{ i }}"></span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="button" class="add-symptom" onclick="addSymptom()">Add Symptom</button>
+            <button type="submit" class="predict-button">Predict Now</button>
+        </form>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        {% if disease %}
+        <div class="result-container">
+            <div class="result-card">
+                <h3>Predicted Disease</h3>
+                <p class="result-text">{{ disease }}</p>
+            </div>
+            <div class="result-card">
+                <h3>Recommended Department</h3>
+                <p class="result-text">{{ department }}</p>
+            </div>
+            <div class="result-card precaution-card">
+                <h3>Precautions</h3>
+                <p class="result-text">{{ precaution }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="chart-container">
+            <h2>Your Predicted Diseases</h2>
+            <canvas id="userPredictionChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        console.log("Script started loading");
+
+        const symptomsList = {{ symptoms_list|safe|default:'[]' }};
+        const symptomDescriptions = {{ symptom_descriptions|safe|default:'{}' }};
+        const predictionStats = {{ prediction_stats|safe|default:'{}' }};
+
+       
+        let symptomCounter = 5;
+
+        function addSymptom() {
+            console.log("addSymptom() called, counter:", symptomCounter);
+            symptomCounter++;
+            const container = document.getElementById('symptom-container');
+            if (!container) {
+                console.error("Symptom container not found");
+                return;
+            }
+
+            const symptomRow = document.createElement('div');
+            symptomRow.className = 'symptom-row';
+
+            const select = document.createElement('select');
+            select.name = 'symptoms[]';
+            select.className = 'symptom-input';
+            select.onchange = function() { showDescription(this); };
+
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.text = `Select Symptom ${symptomCounter}`;
+            select.appendChild(defaultOption);
+
+            symptomsList.forEach(symptom => {
+                const option = document.createElement('option');
+                option.value = symptom;
+                option.text = symptom;
+                option.dataset.description = symptomDescriptions[symptom] || 'No description available.';
+                select.appendChild(option);
+            });
+
+            const descSpan = document.createElement('span');
+            descSpan.className = 'symptom-description';
+            descSpan.id = `desc-${symptomCounter}`;
+
+            symptomRow.appendChild(select);
+            symptomRow.appendChild(descSpan);
+            container.appendChild(symptomRow);
+        }
+
+        function showDescription(selectElement) {
+            console.log("showDescription() called with value:", selectElement.value);
+            const descId = selectElement.nextElementSibling.id;
+            const description = selectElement.selectedOptions[0].dataset.description || 'Select a symptom to see its description.';
+            console.log("Setting description for", descId, "to:", description);
+            const descElement = document.getElementById(descId);
+            if (descElement) {
+                descElement.textContent = description;
+            } else {
+                console.error("Description span not found for ID:", descId);
+            }
+        }
+
+        let chart;
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded");
+            console.log("Chart.js available:", typeof Chart !== 'undefined');
+            const ctx = document.getElementById('userPredictionChart').getContext('2d');
+            if (predictionStats && Object.keys(predictionStats).length > 0) {
+                if (chart) chart.destroy();
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(predictionStats),
+                        datasets: [{
+                            label: 'Your Prediction Frequency',
+                            data: Object.values(predictionStats),
+                            backgroundColor: ['#FF5722', '#9C27B0', '#3F51B5', '#009688', '#E91E63', '#4CAF50'],
+                            borderColor: '#fff',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: { y: { beginAtZero: true } },
+                        plugins: { legend: { display: false }, title: { display: true, text: 'Your Predicted Diseases' } }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

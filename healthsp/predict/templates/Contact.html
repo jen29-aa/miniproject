@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHSPHERE - Contact Us</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="{% url 'home' %}" class="nav-button">Home</a>
+            <a href="{% url 'predict' %}" class="nav-button">Predict Disease</a>
+            <a href="{% url 'article' %}" class="nav-button">Disease Articles</a>
+            <a href="{% url 'contact' %}" class="nav-button">Contact Us</a>
+            <a href="{% url 'about' %}" class="nav-button">About Us</a>
+        </div>
+        <img src="{% static 'images/logo2.jpg' %}" alt="HealthSphere Logo" class="logo">
+    </div>
+
+    <div class="content">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <p>We’re here to assist you! Reach out with any questions, feedback, or support requests.</p>
+            <ul>
+                <li><strong>Email:</strong> support@healthsphere.com</li>
+                <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+                <li><strong>Address:</strong> Viswajyothi College of Engineering and Technology,Vazhakulam,Ernakulam</li>
+            </ul>
+            <p>Feel free to drop us a message anytime!</p>
+        </div>
+    </div>
+</body>
+</html>

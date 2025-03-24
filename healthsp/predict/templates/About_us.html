@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTHSPHERE - About Us</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="{% url 'home' %}" class="nav-button">Home</a>
+            <a href="{% url 'predict' %}" class="nav-button">Predict Disease</a>
+            <a href="{% url 'article' %}" class="nav-button">Disease Articles</a>
+            <a href="{% url 'contact' %}" class="nav-button">Contact Us</a>
+            <a href="{% url 'about' %}" class="nav-button">About Us</a>
+        </div>
+        <img src="{% static 'images/logo2.jpg' %}" alt="HealthSphere Logo" class="logo">
+    </div>
+
+    <div class="content">
+        <h1>About Us</h1>
+        <div class="about-info">
+            <p>HealthSphere is a revolutionary platform dedicated to empowering individuals with accessible health insights. Founded by a team of 4 members(Jen Jojo,Melow Sunny,Sebastain Jain and Mathew Babu).Understanding the current 
+                problems of the society in healthcare and try to integrate Technology for the betterment. Join us in our journey to enhance wellness worldwide!</p>
+        </div>
+    </div>
+</body>
+</html>
